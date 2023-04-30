@@ -9,15 +9,42 @@ class Person
 class AAUOC
 Event <|-- Conference
 Event <|-- BoardMeeting
-Person <|-- Member
 Member <|-- BoardMember
+Person <|-- Member
 AAUOC o-- Person
 AAUOC o-- Event
 AAUOC o-- Location
-Event -- Location
-Event -- Member
-BoardMember -- BoardMeeting
-Conference -- Person
+Event -- "isLocated In" Location
+Event -- "attendsTo" Member
+BoardMember -- "attendsTo" BoardMeeting
+Conference -- "attendsTo" Person
+class Location{
+description: String
+address: String
+}
+class Event{
+date : Date
+description: String
+assign(I: Location): void
+}
+class Person{
+name: String
+}
+class Member{
+e-mail: String
+}
+class Conference{
+max_attendees: Integer
+}
+class AAUOC{
+newLocation(I: Location): void
+newEvent(e: Event) : void
+newPerson(p: Person) : void
+informEvent(e: Event) : void
+register(m: Member, e: Event): void
+}
+
+
 @enduml
 
 
